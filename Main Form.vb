@@ -16,6 +16,8 @@ Public Class frmMain
     Dim gameOver As Boolean = False
     Dim awaitingAttackClick As Boolean = False
     Dim readyToAttack As Boolean = False
+    
+'Builds both grids on the form, Shows instructions to the first player, Hides attack buttons (since no one's attacking yet), Prepares the game for Player 1 to start placing their ships.
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CreateGrid(P1Grid, 125, 100, "P1")   ' Left grid
@@ -27,6 +29,7 @@ Public Class frmMain
         UpdateGridVisibility()
     End Sub
 
+' builds the 5x5 grid of square boxes for a player, positions the squares on the screen, gives each a unique ID, connects them to click actions, and keeps track of them in an array.
     Private Sub CreateGrid(ByRef grid(,) As Label, startX As Integer, startY As Integer, tagPrefix As String)
         For row As Integer = 0 To 4
             For col As Integer = 0 To 4
@@ -66,7 +69,7 @@ Public Class frmMain
             Next
         Next
     End Sub
-
+'declare to make grid clickable
     Private Sub GridLabel_Click(sender As Object, e As EventArgs)
         If gameOver Then Return
 
@@ -100,19 +103,6 @@ Public Class frmMain
                 End If
             End If
         End If
-
-
-        'If P1ShipCount = maxShips AndAlso playerTurn = 1 Then
-        'playerTurn = 2
-        'lblStatus.Text = "Player 2: Place 2 ships"
-        'UpdateGridVisibility()
-        'ElseIf P2ShipCount = maxShips AndAlso playerTurn = 2 Then
-        'placingShips = False
-        'playerTurn = 1
-        'lblStatus.Text = "Player 1: Click Attack to begin"
-        'btnAttackP1.Visible = True
-        'UpdateGridVisibility()
-        'End If
 
 
         ' ATTACK PHASE: player clicks their own grid, but fires at opponent's grid
@@ -162,6 +152,8 @@ Public Class frmMain
                 End If
             End If
     End Sub
+
+    'Reset button for player 1 and 2
     Private Sub btnResetP1_Click(sender As Object, e As EventArgs) Handles btnResetP1.Click
         For row = 0 To 4
             For col = 0 To 4
@@ -190,6 +182,8 @@ Public Class frmMain
         lblStatus.Text = "Player 2 grid reset"
     End Sub
 
+
+'Next Turn button, to switch turn for 1v1
     Private Sub btnNextTurn_Click(sender As Object, e As EventArgs) Handles btnNextTurn.Click
         If gameOver Then Return
 
@@ -227,6 +221,7 @@ Public Class frmMain
 
     End Sub
 
+'New game button for after a player wins
     Private Sub btnNewGame_Click(sender As Object, e As EventArgs) Handles btnNewGame.Click
         For row = 0 To 4
             For col = 0 To 4
@@ -268,6 +263,7 @@ Public Class frmMain
         End If
     End Sub
 
+'Attack button created for game integrity, making grid visible and playable only when clicked
     Private Sub btnAttackP1_Click(sender As Object, e As EventArgs) Handles btnAttackP1.Click
         awaitingAttackClick = True
         readyToAttack = True
@@ -284,6 +280,7 @@ Public Class frmMain
         UpdateGridVisibility()
     End Sub
 
+'exit button to close out application
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Close()
     End Sub
