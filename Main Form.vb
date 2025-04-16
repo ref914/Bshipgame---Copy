@@ -1,4 +1,4 @@
-﻿Public Class frmMain
+Public Class frmMain
 
     Dim P1Grid(4, 4) As Label
     Dim P2Grid(4, 4) As Label
@@ -76,6 +76,7 @@
         Dim row = Integer.Parse(parts(1))
         Dim col = Integer.Parse(parts(2))
 
+
         'Ship placement
         ' Placing ships on your own grid
         If placingShips Then
@@ -83,8 +84,8 @@
                 If Not P1Ships(row, col) AndAlso P1ShipCount < maxShips Then
                     P1Ships(row, col) = True
                     P1ShipCount += 1
-                    Dim original As Image = Image.FromFile("C:\Users\rayvo\OneDrive\Desktop\Updated Battleship\Bshipgame - Copy\Resources\ship 2.png")
-                    Dim resized As New Bitmap(original, New Size(30, 30))
+                    Dim original As Image = Image.FromFile("D:\Bshipgame - Copy\Resources\download.jpg")
+                    Dim resized As New Bitmap(original, New Size(32, 32))
                     lbl.Image = resized
                     lblStatus.Text = $"Player 1: {P1ShipCount}/2 ships placed"
                 End If
@@ -92,12 +93,26 @@
                 If Not P2Ships(row, col) AndAlso P2ShipCount < maxShips Then
                     P2Ships(row, col) = True
                     P2ShipCount += 1
-                    lbl.BackColor = Color.Blue
+                    Dim original As Image = Image.FromFile("D:\Bshipgame - Copy\Resources\download.jpg")
+                    Dim resized As New Bitmap(original, New Size(32, 32))
+                    lbl.Image = resized
                     lblStatus.Text = $"Player 2: {P2ShipCount}/2 ships placed"
                 End If
             End If
         End If
 
+
+        'If P1ShipCount = maxShips AndAlso playerTurn = 1 Then
+        'playerTurn = 2
+        'lblStatus.Text = "Player 2: Place 2 ships"
+        'UpdateGridVisibility()
+        'ElseIf P2ShipCount = maxShips AndAlso playerTurn = 2 Then
+        'placingShips = False
+        'playerTurn = 1
+        'lblStatus.Text = "Player 1: Click Attack to begin"
+        'btnAttackP1.Visible = True
+        'UpdateGridVisibility()
+        'End If
 
 
         ' ATTACK PHASE: player clicks their own grid, but fires at opponent's grid
@@ -106,17 +121,21 @@
                     If Not P1Hits(row, col) Then
                         P1Hits(row, col) = True
                         If P2Ships(row, col) Then
-                            P2Grid(row, col).BackColor = Color.Red
-                            lblStatus.Text = "Player 1 HIT!"
-                            'PlaySound("hit.wav")
-                            P1Score += 1
+                        Dim original As Image = Image.FromFile("D:\Bshipgame - Copy\Resources\Screenshot 2025-04-09 161902.png")
+                        Dim resized As New Bitmap(original, New Size(32, 32))
+                        lbl.Image = resized
+                        lblStatus.Text = "Player 1 HIT!"
+                        'PlaySound("hit.wav")
+                        P1Score += 1
                             CheckWinner()
                         Else
                             P2Grid(row, col).BackColor = Color.White
-                            lbl.Text = "X"
-                            lblStatus.Text = "Player 1 Missed!"
-                            'PlaySound("miss.wav")
-                        End If
+                        Dim original As Image = Image.FromFile("D:\Bshipgame - Copy\Resources\Screenshot 2025-04-09 161701.png")
+                        Dim resized As New Bitmap(original, New Size(32, 32))
+                        lbl.Image = resized
+                        lblStatus.Text = "Player 1 Missed!"
+                        'PlaySound("miss.wav")
+                    End If
                         awaitingAttackClick = False
                         readyToAttack = False
                     End If
@@ -124,10 +143,12 @@
                     If Not P2Hits(row, col) Then
                         P2Hits(row, col) = True
                         If P1Ships(row, col) Then
-                            P1Grid(row, col).BackColor = Color.Red
-                            lblStatus.Text = "Player 2 HIT!"
-                            'PlaySound("hit.wav")
-                            P2Score += 1
+                        Dim original As Image = Image.FromFile("D:\Bshipgame - Copy\Resources\Screenshot 2025-04-09 161902.png")
+                        Dim resized As New Bitmap(original, New Size(32, 32))
+                        lbl.Image = resized
+                        lblStatus.Text = "Player 2 HIT!"
+                        'PlaySound("hit.wav")
+                        P2Score += 1
                             CheckWinner()
                         Else
                             P1Grid(row, col).BackColor = Color.White
